@@ -1,5 +1,4 @@
-Introduction {#introduction .unnumbered}
-============
+# Introduction {#introduction .unnumbered}
 
 The last few lectures described the Bitcoin design, which is considered
 the prototypical blockchain system. In any blockchain system, the
@@ -33,8 +32,7 @@ time. This mathematical model serves as a basis for theoretical security
 guarantees. We shall see that the security guarantees are probabilistic
 in nature, with the randomness factor coming from the mining process.
 
-Mining as a Poisson process {#mining-as-a-poisson-process .unnumbered}
-===========================
+# Mining as a Poisson process {#mining-as-a-poisson-process .unnumbered}
 
 The times at which a new block is mined is modeled as a Poisson process
 with rate $\lambda$. Here the average inter-block time,
@@ -108,8 +106,7 @@ by giving the adversary some extra power. By doing so, we are guaranteed
 that the statements on the system's security are guaranteed to hold even
 in practice.
 
-Nakamoto consensus protocol model {#nakamoto-consensus-protocol-model .unnumbered}
-=================================
+# Nakamoto consensus protocol model {#nakamoto-consensus-protocol-model .unnumbered}
 
 We assume that there is a single adversary and many different honest
 parties participating in the protocol. The adversary's computing power
@@ -168,28 +165,32 @@ confirmed by one user is soon confirmed by all other users, and remains
 confirmed forever after. In blockchains, this desirable property is
 called a *safety property*.
 
-Formal definitions of safety {#formal-definitions-of-safety .unnumbered}
-============================
+# Formal definitions of safety {#formal-definitions-of-safety .unnumbered}
 
 We now formally define safety of the Nakamoto consensus protocol. We
 give two definitions: the first is a statement about the entire duration
 of the protocol (a global/extensive statement), while the second
 concerns just one particular block (a local/intensive statement).
 
-For a blockchain protocol, the $k$-common prefix property holds during
-an execution of the protocol if any block that is committed by one
-honest user appears in every honest user's chain thereafter.
-Mathematically, for all pairs of times $i_1 \leq i_2$, for all pairs of
-honest users $h_1, h_2$,
+::: definition
+**Definition 1** (Common Prefix Property). *For a blockchain protocol,
+the $k$-common prefix property holds during an execution of the protocol
+if any block that is committed by one honest user appears in every
+honest user's chain thereafter. Mathematically, for all pairs of times
+$i_1 \leq i_2$, for all pairs of honest users $h_1, h_2$,
 $$\mathcal{C}^{\lfloor k}_1 \preceq \mathcal{C}_2$$ where
 $\mathcal{C}_1 \equiv \mathcal{C}^{h_1}_{i_1}$,
-$\mathcal{C}_2 \equiv \mathcal{C}^{h_2}_{i_2}$.
+$\mathcal{C}_2 \equiv \mathcal{C}^{h_2}_{i_2}$.*
+:::
 
-In an execution, a block $B$ present in some honest user's chain is safe
-if, after it has been committed by any honest user, it remains a part of
-all honest user's chains. Mathematically, if block $B$ is committed by
-some user $h$ at time $t$, then for all $t' \geq t$, for all honest
-users $h'$, $b \in \mathcal{C}^{h'}_{t'}$
+::: definition
+**Definition 2** (Individual block safety). *In an execution, a block
+$B$ present in some honest user's chain is safe if, after it has been
+committed by any honest user, it remains a part of all honest user's
+chains. Mathematically, if block $B$ is committed by some user $h$ at
+time $t$, then for all $t' \geq t$, for all honest users $h'$,
+$b \in \mathcal{C}^{h'}_{t'}$*
+:::
 
 Note that the two statements are very similar in form. In fact, the
 former subsumes the latter. For simplicity of exposition, we focus on
@@ -209,8 +210,7 @@ adversary can disrupt safety, we take a look at some possible
 adversarial actions. In particular, we will focus on an adversary trying
 to disrupt the individual safety of a fixed block $B$.
 
-Private attack {#private-attack .unnumbered}
-==============
+# Private attack {#private-attack .unnumbered}
 
 Consider a simple model of the blockchain system with all users split
 into two groups: many honest users and a singe adversarial user. The
@@ -255,8 +255,7 @@ reference="fig:privateattack"}).
 ![Private attack on block $B$ with
 $k=5$.](figures/privateattack.png){#fig:privateattack width="15cm"}
 
-Analysis of the private attack under zero delay {#analysis-of-the-private-attack-under-zero-delay .unnumbered}
-===============================================
+# Analysis of the private attack under zero delay {#analysis-of-the-private-attack-under-zero-delay .unnumbered}
 
 Suppose now that the network delay $\Delta = 0$. So any node mined
 successfully by an honest node reaches all other nodes instantaneously.
@@ -310,8 +309,7 @@ reference="fig:illustrateprivateattack"} as a comparison.
 $\beta = 0.3$.](figures/private.png){#fig:illustrateprivateattack
 width="10cm"}
 
-Private attack is the worst-case attack {#private-attack-is-the-worst-case-attack .unnumbered}
-=======================================
+# Private attack is the worst-case attack {#private-attack-is-the-worst-case-attack .unnumbered}
 
 Private attacks, when successful, enable double-spends and constitute a
 particularly serious threat. However, they are not the only possible
@@ -378,8 +376,7 @@ by the time of the safety attack on the $k$-deep confirmation rule. For
 the same sample path, the adversary could have used its blocks to launch
 a private attack.
 
-Safety analysis under bounded network delay {#safety-analysis-under-bounded-network-delay .unnumbered}
-===========================================
+# Safety analysis under bounded network delay {#safety-analysis-under-bounded-network-delay .unnumbered}
 
 We have supposed the network delay is zero in the analysis above, a
 simplification to model the practical Bitcoin setting: inter-block
@@ -451,8 +448,7 @@ reference="eq:miningthreshold"}) derived for the success of the private
 attack also holds for *any attack*. Some intuition for why this could be
 true is provided next.
 
-Nakamoto blocks {#nakamoto-blocks .unnumbered}
-===============
+# Nakamoto blocks {#nakamoto-blocks .unnumbered}
 
 The entire blocktree, consisting of both honest and adversarial blocks
 (public or private), can be arbitrary under a general attack where the
@@ -501,8 +497,7 @@ $\lambda_{ag} = \beta \lambda$ and
 $\lambda_h = (1-\beta)\lambda$.](figures/nakamoto_block.jpg){#fig:nakamoto_block
 width="10cm"}
 
-Importance of synchronous network {#importance-of-synchronous-network .unnumbered}
-=================================
+# Importance of synchronous network {#importance-of-synchronous-network .unnumbered}
 
 The main point from the safety analysis of this lecture is that the
 longest chain protocol is safe as long as the adversarial hash power is
@@ -522,8 +517,7 @@ However, after GST the consensus returns to all the honest nodes. In
 later lectures we will study consensus protocols that guarantee safety
 even under partially synchronous network settings.
 
-Appendix {#appendix .unnumbered}
-========
+# Appendix {#appendix .unnumbered}
 
 Suppose that a certain honest block $B$ is mined by a miner $P$ at time
 $t$ and $B$ is the first block at level $\ell$. In the worst case, $B$
@@ -552,24 +546,6 @@ the longest chain grow. Therefore, the length of the longest chain grows
 by one with time $1/((1-\beta)\lambda) + \Delta$ on average, which gives
 the growth rate
 $\frac{1}{1/((1-\beta)\lambda) + \Delta} = \frac{(1-\beta)\lambda}{1 + (1-\beta)\lambda\Delta}$.
-
-1\) what do we mean by security: define safety and liveness 1a) focus on
-safety; next lecture has liveness 1b) can only have probabilistic
-guarantee 1c) common prefix property
-
-2\) delta = 0 2a) what are some possible attacks? 2b) double spend
-versus never converging 2c) Xuechao's figure. proving pre-mined private
-attack is worst-case for delta = 0 (this is a 3-page proof, perhaps we
-should just refer to the paper)
-
-2d) error exponent calculation. show that the slope depends on lambda-a
-- lambda-h
-
-4\) non-zero delta. Show that balancing is worse than private attack.
-4a) mean-based calculation for backbone (loner calculation) 4b)
-mean-based calculation for nakamoto block.
-
-5\) end with a note on liveness.
 
 [^1]: Thus, Nakamoto blocks have a god-like permanence, they exist, but
     nobody knows which block is a Nakamoto block.
